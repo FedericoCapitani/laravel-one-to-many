@@ -12,7 +12,13 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        //
-        $categories = ['FrontEnd', 'BackEnd', 'Programming', ];
+        $categories = ['FrontEnd', 'Backend', 'Programming', 'FullStack', 'Design', 'Ops'];
+
+        foreach ($categories as $category) {
+            $new_cat = new Category();
+            $new_cat->name = $category;
+            $new_cat->slug = Str::slug($new_cat->name);
+            $new_cat->save();
+        }
     }
 }

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use Illuminate\Http\Request; 
+use Illuminate\Validation\Rule;
 
 
 class PostController extends Controller
@@ -28,7 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', compact ('categories'));
     }
 
     /**
@@ -72,6 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $categories = Category::all();
         return view('admin.posts.edit', compact('post'));
     }
 
@@ -87,7 +92,12 @@ class PostController extends Controller
         //dd($request->all());
 
         // validate data
-        $val_data = $request->validated();
+        $val_data = $request->validate([
+            'title' => ['required', Rule::unique('posts')->ignore($post)],
+            'category_id' => 'nullable|exists:categories,id',
+            'cover_image' => 'nullable',
+            'content' => 'nullable'
+        ]);
         //dd($val_data);
         // Gererate the slug
         $slug = Post::generateSlug($request->title);
