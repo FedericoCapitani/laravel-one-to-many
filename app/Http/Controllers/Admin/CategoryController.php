@@ -46,7 +46,16 @@ class CategoryController extends Controller
         // redirect
         return redirect()->back()->with('message', "Category $slug added successfully");
     }
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Category  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Category $category)
+    {
+        return view('admin.category.edit', compact('category'));
+    }
 
     /**
      * Update the specified resource in storage.

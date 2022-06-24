@@ -46,7 +46,7 @@
 
                         </td>
                         <td>{{$category->slug}}</td>
-                        <td><span class="badge badge-info bg-dark">{{count($category->posts)}}</span></td>
+                        <td><span class="badge badge-info bg-light">{{count($category->posts)}}</span></td>
                         <td>
                             <button form="category-{{$category->id}}" type="submit" class="btn btn-primary">Update</button>
 
